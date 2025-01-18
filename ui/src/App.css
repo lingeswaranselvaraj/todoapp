@@ -1,0 +1,228 @@
+.App {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background color for the app */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.input-container {
+  margin-bottom: 20px; /* Space below the input section */
+}
+
+.notes-listing {
+  border-top: 2px solid #ddd; /* Separator line above the listings */
+  padding-top: 20px; /* Space above the listings */
+}
+
+.notes-container {
+  display: flex;
+  justify-content: space-between; /* Keep the tables side by side */
+}
+
+.table-container {
+  flex: 1; /* Equal width for tables */
+  margin: 0 10px; /* Space between tables */
+  padding: 15px; /* Add padding inside table containers */
+  border-radius: 4px; /* Rounded corners for table containers */
+}
+
+.table-container h3 {
+  margin-top: 0; /* Removes default margin to keep header closer to the box */
+}
+
+/* Specific styles for Pending Items */
+.completed-items {
+  background-color: #d4edda; /* Light green shade */
+  border: 1px solid #c3e6cb; /* Border to match the theme */
+}
+
+/* Specific styles for Completed Items */
+.pending-items {
+  background-color: #f8d7da; /* Light red shade */
+  border: 1px solid #f5c6cb; /* Border to match the theme */
+}
+
+.input-container {
+  display: flex; /* Align items in a row */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space out items evenly */
+  margin: 20px; /* Spacing around the container */
+  padding: 15px; /* Padding inside the container */
+  border: 1px solid #cccccc; /* Light grey border */
+  border-radius: 10px; /* Softer rounded corners */
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.note-input {
+  flex: 1; /* Allow inputs to grow and take available space */
+  margin-right: 10px; /* Space between inputs */
+  padding: 12px; /* Padding inside input fields */
+  border: 1px solid #dddddd; /* Light grey border */
+  border-radius: 5px; /* Rounded corners for input fields */
+  font-size: 16px; /* Font size for better readability */
+  transition: border 0.3s; /* Smooth transition for border effect */
+}
+
+.note-input:focus {
+  border-color: #4CAF50; /* Change border color on focus */
+  outline: none; /* Remove outline */
+}
+
+.add-button {
+  padding: 12px 20px; /* Increased padding for button */
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Slight rounding for button edges */
+  cursor: pointer; /* Pointer cursor */
+  font-size: 16px; /* Font size for the button */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for button */
+  transition: background-color 0.3s; /* Smooth background change */
+}
+
+.add-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.add-button:active {
+  transform: scale(0.95); /* Slight shrink on press */
+}
+
+.app-title 
+  {
+    text-align: center; /* Center align the text */
+    margin-top: 20px; /* Space above the title */
+  }
+  
+
+  .notes-table {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Merge table borders */
+    margin-top: 20px; /* Space above the table */
+  }
+  
+  .notes-table th, .notes-table td {
+    border: 1px solid #e1e1e1; /* Light grey border */
+    padding: 12px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+  }
+  
+  .notes-table th {
+    background-color: #4CAF50; /* Green background for header */
+    color: white; /* White text color for header */
+    font-size: 16px; /* Font size for header */
+    font-weight: bold; /* Bold text for header */
+  }
+
+  .notes-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+  }
+  
+  .notes-table tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+  }
+
+  .notes-table_1 {
+    width: 100%; /* Full width of the container */
+    border-collapse: collapse; /* Merge table borders */
+    margin-top: 20px; /* Space above the table */
+  }
+  
+  .notes-table_1 th, .notes-table_1 td {
+    border: 1px solid #e1e1e1; /* Light grey border */
+    padding: 12px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+  }
+  
+
+  .notes-table_1 th {
+    background-color: #af4c4c; /* Green background for header */
+    color: white; /* White text color for header */
+    font-size: 16px; /* Font size for header */
+    font-weight: bold; /* Bold text for header */
+  }
+
+  .notes-table_1 tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light grey for even rows */
+  }
+  
+  .notes-table_1 tr:hover {
+    background-color: #ddd; /* Highlight row on hover */
+  }
+  
+  
+  
+  .delete-button {
+    background-color: #ff4c4c; /* Red for delete button */
+    color: white; /* White text for button */
+    border: none; /* No border */
+    padding: 8px 12px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth background change */
+  }
+  
+  .delete-button:hover {
+    background-color: #fa1f1f; /* Darker red on hover */
+  }
+
+  .complete-button {
+    background-color: #4cff55; /* Red for delete button */
+    color: white; /* White text for button */
+    border: none; /* No border */
+    padding: 8px 12px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth background change */
+  }
+  
+  .complete-button:hover {
+    background-color: #4cff88; /* Darker red on hover */
+  }
+
+  .note-description {
+    word-wrap: break-word; /* Allow long words to break onto the next line */
+    white-space: normal; /* Normal whitespace handling */
+    max-width: 250px; /* Set a max width for the description cell */
+  }
+
+  .app-title {
+    font-size: 36px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    color: #4A90E2; /* Blue color for the main text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    background: linear-gradient(90deg, #4A90E2, #D0021B); /* Gradient background */
+    -webkit-background-clip: text; /* Clip the background to the text */
+    -webkit-text-fill-color: transparent; /* Make the text color transparent to show background */
+    margin: 20px 0; /* Margin above and below the title */
+    text-align: center; /* Center-align the text */
+    font-family: 'Arial', sans-serif; /* Use a clean font */
+    animation: bounce 1.5s infinite; /* Add a bounce effect */
+  }
+  
+  /* Bounce animation */
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0); /* Original position */
+    }
+    40% {
+      transform: translateY(-10px); /* Bounce up */
+    }
+    60% {
+      transform: translateY(-5px); /* Bounce down */
+    }
+  }
+
+  .table-container h3 {
+    text-align: center; /* Center-align the text */
+    font-size: 24px; /* Slightly larger font size */
+    font-weight: bold; /* Bold the text */
+    color: #4A90E2; /* Add a vibrant color */
+    margin: 10px 0; /* Margin above and below the heading */
+    padding: 10px; /* Padding for some space around the text */
+    border-bottom: 2px solid #D0021B; /* Underline with a red color */
+    background-color: #f9f9f9; /* Light background to make it stand out */
+    border-radius: 5px; /* Rounded corners for the heading background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
