@@ -10,7 +10,7 @@ class App extends Component {
     };
   }
 
-  API_URL = "http://localhost:5038/";
+  API_URL = "https://todoapp-production-3030.up.railway.app/";
 
   componentDidMount() {
     this.refreshNotes();
