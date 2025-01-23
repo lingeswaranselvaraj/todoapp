@@ -2,6 +2,7 @@ var Express = require('express');
 var MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 const upload = multer(); 
 var app = Express();
@@ -23,23 +24,22 @@ app.listen(5038, () => {
     });
 });
 
-app.get('/api/todoapp/GetNotes', (request, response) => {
-    database.collection("todoappcollection").find({}).toArray((error, result) => {
-        if(error) {
-            return response.status
+app.get('/api/todoapp/GetNotes/:userId', (request, response) => {
+    const userId = request.params.userId; // Get user ID from request parameters
+    database.collection("todoappcollection").find({ userId }).toArray((error, result) => {
+        if (error) {
+            return response.status(500).send("Error fetching notes.");
         }
         response.send(result);
-    }
-    );
+    });
 });
-
 
 app.post('/api/todoapp/AddNotes', upload.none(), (request, response) => {
     console.log("Incoming request body:", request.body);
     console.log("AddNotes" + request.body.newNotesStatus);
     
     collection = database.collection("todoappcollection");
-
+    const userId = request.body.userId
     // Find the document with the highest `id`
     collection.find().sort({id: -1}).limit(1).toArray((error, docs) => {
         if (error) {
@@ -59,7 +59,8 @@ app.post('/api/todoapp/AddNotes', upload.none(), (request, response) => {
         collection.insertOne({
             id: newId,
             description: request.body.newNotes,
-            status: request.body.newNotesStatus
+            status: request.body.newNotesStatus,
+            userId: userId
         }, (err, result) => {
             if (err) {
                 return response.status(500).send("Error occurred while adding note.");
@@ -70,15 +71,28 @@ app.post('/api/todoapp/AddNotes', upload.none(), (request, response) => {
 });
 
 app.post('/api/todoapp/DeleteNotes', (request, response) => {
+    const { id, userId } = request.query; // Get ID and user ID from query
     collection = database.collection("todoappcollection");
-    collection.deleteOne({id:request.query.id});
-    response.send("Deleted Successfully");
+
+    // Ensure you are matching by userId as well to avoid deleting other users' notes
+    collection.deleteOne({ id: id, userId: userId }, (err, result) => {
+        if (err) {
+            return response.status(500).send("Error occurred while deleting note.");
+        }
+        
+        if (result.deletedCount === 0) {
+            return response.status(404).send("Note not found or does not belong to the user.");
+        }
+        
+        response.send("Deleted Successfully");
+    });
 });
 
 app.post('/api/todoapp/UpdateNoteStatus', (request, response) => {
+    const { id } = request.query; // Get ID and user ID from query
+    const { userId } = request.body;
     collection = database.collection("todoappcollection");
-
-    // Find the document with the highest `id`
+console.log("UpdateNoteStatus" + request.query.id+ request.body.userId+ request.body.status);
     collection.find().sort({id: -1}).limit(1).toArray((error, docs) => {
         if (error) {
             return response.status(500).send("Error occurred while fetching highest ID.");
@@ -91,24 +105,53 @@ app.post('/api/todoapp/UpdateNoteStatus', (request, response) => {
         } else {
             newId = "1";  // Start with 1 if there are no documents
         }
-
-        // Update the note's ID and status
-        collection.updateOne(
-            { id: request.query.id },
-            {
-                $set: {
-                    id: newId, // Assign the new ID
-                    status: request.body.status // Update the status
-                }
-            },
-            (err, result) => {
-                if (err) {
-                    return response.status(500).send("Error occurred during update.");
-                }
-                response.send("Updated Successfully with new ID.");
+    collection.updateOne(
+        { id, userId }, // Ensure the userId matches
+        {
+            $set: {
+                id: newId,
+                status: request.body.status // Update the status
             }
-        );
-    });
+        },
+        (err, result) => {
+            if (err) {
+                return response.status(500).send("Error occurred during update.");
+            }
+            response.send("Updated Successfully.");
+        }
+    );
+});
+});
+
+
+
+app.post('/api/users', async (request, response) => {
+    const email = request.body.email;
+    collection = database.collection("users");
+
+    try {
+        // Try to find the user by email
+        let user = await collection.findOne({ email });
+
+        if (!user) {
+            // If user does not exist, insert it with a unique ID
+            const uniqueId = uuidv4(); // Generate a new UUID
+            const result = await collection.insertOne({ email, userId: uniqueId });
+
+            // The user object now needs to be constructed, as result.ops is no longer available
+            user = {
+                _id: result.insertedId,
+                email,
+                userId: uniqueId,
+            };
+            console.log("User added with custom ID:", user);
+        }
+
+        response.json({ userId: user.userId });
+    } catch (error) {
+        console.error("Error while checking/creating user:", error);
+        response.status(500).send("Internal Server Error");
+    }
 });
 
 
