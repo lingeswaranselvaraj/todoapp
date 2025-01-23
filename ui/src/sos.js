@@ -66,7 +66,7 @@ const Sos = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId=""> {/* Replace with your client ID */}
+    <GoogleOAuthProvider clientId="406320822754-6iul5onkaiuboq2n9psvf3hmdsa5vrg7.apps.googleusercontent.com"> {/* Replace with your client ID */}
       <div>
         <h2>Google Sign-In</h2>
         {userEmail ? (
